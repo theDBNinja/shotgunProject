@@ -1,0 +1,18 @@
+{% extends "sgSite/base_index.html" %}
+
+{% block title %}Projects List{% endblock %}
+
+{% block content %}
+    {% if projects|length >= 1 %}
+        <ul class="list-group">
+            {% for project in projects %}
+                <li class="list-group-item"><a
+                        href="{% url 'sgSite:project' project.id %}">{{ project.id }}: {{ project.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div id="content">
+            {{ content }}
+        </div>
+    {% endif %}
+{% endblock %}

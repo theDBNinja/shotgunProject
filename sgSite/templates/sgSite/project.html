@@ -1,0 +1,47 @@
+{% extends "sgSite/base_index.html" %}
+
+{% block title %}Project Shots | {{ title }}{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Sequence</th>
+            <th scope="col">Thumbnail</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for shot in shots %}
+            <tr>
+                <th scope="row">{{ shot.id }}</th>
+                <td>{{ shot.sg_sequence.name }}</td>
+                <td>
+                    <figure class="figure">
+                        <img src="{{ shot.image }}" class="figure-img img-fluid rounded"
+                             alt="{{ shot.id }}: {{ shot.code }}">
+                        <figcaption class="figure-caption">Description: {{ shot.description }}</figcaption>
+                    </figure>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if shots.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ shots.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ shots.number }} of {{ shots.paginator.num_pages }}.
+            </span>
+
+            {% if shots.has_next %}
+                <a href="?page={{ shots.next_page_number }}">next</a>
+                <a href="?page={{ shots.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
