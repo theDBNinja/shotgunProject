@@ -2,7 +2,7 @@
 
 {% block title %}Project Shots | {{ title }}{% endblock %}
 
-{% block content %}
+{% block content %}{% if content %}<div>{{ content }}</div>{% else %}
     <table class="table">
         <thead>
         <tr>
@@ -44,4 +44,5 @@
             {% endif %}
         </span>
     </div>
+{% endif %}
 {% endblock %}

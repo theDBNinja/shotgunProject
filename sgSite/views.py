@@ -64,7 +64,13 @@ class IndexView(TemplateView):
         _set_up_logging()
 
         # Grab a Shotgun connection.
-        sg = _get_sg_vars()
+        try:
+            sg = _get_sg_vars()
+        except BaseException as e:
+            logging.error("Could not create connection to Shotgun")
+            context['contenttitle'] = "ERROR"
+            context['content'] = "Error connecting to Shotgun Server"
+            return context
 
         # Project fields to include
         fields = ['id', 'name']
@@ -106,7 +112,15 @@ class ProjectView(TemplateView):
         _set_up_logging()
 
         # Grab a Shotgun connection.
-        sg = _get_sg_vars()
+        try:
+            sg = _get_sg_vars()
+        except BaseException as e:
+            logging.error("Could not create connection to Shotgun")
+            context['title'] = "Error"
+            context['contenttitle'] = "ERROR"
+            context['content'] = "Error connecting to Shotgun Server"
+            context['shots'] = []
+            return context
 
         # Project fields to include
         project_fields = ['id', 'name']
